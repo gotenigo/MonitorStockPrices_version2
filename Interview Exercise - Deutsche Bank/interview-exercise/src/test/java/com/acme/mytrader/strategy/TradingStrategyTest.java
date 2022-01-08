@@ -73,16 +73,15 @@ public class TradingStrategyTest {
         assertNotNull(orderStrategy.getId());
 
 
+        PriceListener priceSource = new TradingStrategy(orderStrategy, new ExecutionManager() );
+        priceSource.priceUpdate("CAD",5);
+
         //assertSame(expected, actual),
         //assertNotSame(expected, actual)
         //assertArrayEquals(expected, actual)
         //assertEquals(expected[i],actual[i])
         //assertArrayEquals(expected[i],actual[i])
 
-
-        PriceListener priceSource = new TradingStrategy(orderStrategy, new ExecutionManager() );
-
-        priceSource.priceUpdate("CAD",5);
 
     }
 
@@ -93,7 +92,7 @@ public class TradingStrategyTest {
     public void PlayFullData() {
 
 
-
+/*
         List<OrderStrategy> orderStrategyList = new ArrayList<>();
         OrderStrategy orderStrategy;
 
@@ -138,7 +137,7 @@ public class TradingStrategyTest {
 
 
         priceSource.priceUpdate("CAD",454);
-
+*/
 
     }
 

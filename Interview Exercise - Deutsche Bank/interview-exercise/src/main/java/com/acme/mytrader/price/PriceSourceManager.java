@@ -42,7 +42,7 @@ public class PriceSourceManager implements PriceSource, PriceListener{
 
     public void priceUpdate(String security, double price) {
 
-        for (PriceListener priceListener : PriceListenerList) {  // execute each Strategy for each stock
+        for (PriceListener priceListener : PriceListenerList) {
 
             TradingStrategy tradingStrategy = (TradingStrategy) priceListener;
             String vStock = tradingStrategy.getStock();
@@ -50,7 +50,6 @@ public class PriceSourceManager implements PriceSource, PriceListener{
                 tradingStrategy.priceUpdate(security, price);
             }
         }
-
     }
 
 
