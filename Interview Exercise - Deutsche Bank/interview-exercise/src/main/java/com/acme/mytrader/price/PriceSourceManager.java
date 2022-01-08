@@ -48,7 +48,11 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     }
 
 
-
+    /**
+     *
+     * @param security
+     * @param price
+     */
     public void priceUpdate(String security, double price) {
 
         for (PriceListener priceListener : PriceListenerList) {
