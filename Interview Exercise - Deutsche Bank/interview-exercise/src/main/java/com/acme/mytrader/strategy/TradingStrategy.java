@@ -9,8 +9,7 @@ import com.acme.mytrader.strategy.pattern.Context;
 import com.acme.mytrader.strategy.pattern.PriceBelowLevel;
 import com.acme.mytrader.strategy.pattern.PriceStrategy;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+
 
 
 /**
@@ -20,20 +19,21 @@ import org.springframework.stereotype.Component;
  * </pre>
  */
 @Slf4j
-//An immutable class is good for caching purposes because you don’t have to worry about the value changes.
-//Also immutable class is inherently thread-safe, so you don’t have to worry about thread safety in case of multi-threaded environment.
-//the class as final so it can’t be extended
-@Component
-public  final class TradingStrategy implements PriceListener {
-
+public  class TradingStrategy implements PriceListener {
 
     private final OrderStrategy orderStrategy;
     private final Context context; // needed for the Strategy Pattern on price
-    private final  ExecutionService executionService;  // needed to executed automatically
+    private final ExecutionService executionService;  // needed to executed automatically
 
 
-    //By default, we adopt strategy of PriceBelowLevel()
-    @Autowired
+
+
+    /**
+     *  //By default, we adopt strategy of PriceBelowLevel()
+     *
+     * @param orderStrategy
+     * @param executionService
+     */
     public TradingStrategy(OrderStrategy orderStrategy, ExecutionService executionService){
 
         this.orderStrategy = orderStrategy;
@@ -42,7 +42,17 @@ public  final class TradingStrategy implements PriceListener {
 
     }
 
-    //We can also choose your own Strategy as per the Strategy patter implementation
+
+
+
+    /**
+     *
+     *  //We can also choose your own Strategy as per the Strategy patter implementation
+     *
+     * @param orderStrategy
+     * @param executionService
+     * @param priceStrategy
+     */
     public TradingStrategy(OrderStrategy orderStrategy,ExecutionService executionService,PriceStrategy priceStrategy){
         this.orderStrategy = orderStrategy;
         this.executionService=executionService;
@@ -51,9 +61,18 @@ public  final class TradingStrategy implements PriceListener {
 
 
 
-    //price update has to happen in real time, so you should not save in memory for further check
-    // it has to be as fast as possible as price can vary very quick !
-    // price update should trigger an event immediately
+
+
+    /**
+     *
+     *     //price update has to happen in real time, so you should not save in memory for further check
+     *     // it has to be as fast as possible as price can vary very quick !
+     *     // price update should trigger an event immediately
+     *
+     *
+     * @param security
+     * @param price
+     */
     @Override
     public void priceUpdate(String security, double price) {
 
@@ -68,7 +87,7 @@ public  final class TradingStrategy implements PriceListener {
             boolean triggerLevelBreached = context.executeStrategy(price, priceLevel);
 
             if (triggerLevelBreached) {
-                log.info("Alert ! Price level reached for  Id "+orderStrategy.getId()+" -StrategyName="+orderStrategy.getStrategyName());
+                log.info("Stock '"+security+"' => !!! Price Monitor level reached for  alert orderStrategy Id "+orderStrategy.getId()+", StrategyName="+orderStrategy.getStrategyName());
 
                 switch(side) {  // good choice as it will throw a compilation if side does not provide the right value
                     case BUY :
@@ -79,16 +98,26 @@ public  final class TradingStrategy implements PriceListener {
                         break;
                 }
             }else{
-                log.info("Keep cool, price alert Id "+orderStrategy.getId()+" -StrategyName="+orderStrategy.getStrategyName()+" criteria not met yet");
+                log.info("Stock '"+security+"'=> Normal price Move for alert orderStrategy Id "+orderStrategy.getId()+", StrategyName="+orderStrategy.getStrategyName()+" criteria not met yet");
             }
 
         }else{
-            log.info("Stock price rejected ! You are trying to update the wrong stock price. Stock set by user is :"+orderStrategy.getStock()+", but you want to update "+security);
+            log.info("Stock price rejected ! You are trying to update the wrong stock price. Stock set by user is '"+orderStrategy.getStock()+"', but you want to update stock name '"+security+"'");
         }
 
     }
 
 
+
+    /**
+     *
+     * Return the Stock name
+     *
+     * @return
+     */
+    public String getStock() {
+        return orderStrategy.getStock();
+    }
 
 
 }
