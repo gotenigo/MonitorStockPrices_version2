@@ -13,12 +13,12 @@ public class ExecutionManager implements ExecutionService {
 
     @Override
     public void buy(String security, double price, int volume) {
-        log.info("==> Buy order executed ! ");
+        log.info("==> Buy order executed ! [ security ="+security+" , volume ="+volume+" ] ");
     }
 
     @Override
     public void sell(String security, double price, int volume) {
 
-        log.info("==> Sell order executed ! ");
+        log.info("==> Sell order executed  [ security ="+security+" , volume ="+volume+" ] ! ");
     }
 }

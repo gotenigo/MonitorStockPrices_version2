@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
  * </pre>
  */
 @Slf4j
-public  class TradingStrategy implements PriceListener {
+public class TradingStrategy implements PriceListener {
 
     private final OrderStrategy orderStrategy;
     private final Context context; // needed for the Strategy Pattern on price

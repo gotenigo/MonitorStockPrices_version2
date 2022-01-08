@@ -24,6 +24,10 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     }
 
 
+    /****
+     *
+     * @param listener
+     */
     @Override
     public void addPriceListener(PriceListener listener) {
 
@@ -31,6 +35,11 @@ public class PriceSourceManager implements PriceSource, PriceListener{
 
     }
 
+
+    /**
+     *
+     * @param listener
+     */
     @Override
     public void removePriceListener(PriceListener listener) {
 
