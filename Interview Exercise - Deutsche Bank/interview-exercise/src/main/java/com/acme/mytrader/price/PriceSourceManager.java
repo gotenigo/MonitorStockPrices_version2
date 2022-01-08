@@ -42,18 +42,15 @@ public class PriceSourceManager implements PriceSource, PriceListener{
 
     public void priceUpdate(String security, double price) {
 
+        for (PriceListener priceListener : PriceListenerList) {  // execute each Strategy for each stock
 
-        for (Iterator<PriceListener> iter = PriceListenerList.iterator(); iter.hasNext(); ) {
-
-            Object object = iter.next();
-            TradingStrategy tradingStrategy = (TradingStrategy) object;
-
+            TradingStrategy tradingStrategy = (TradingStrategy) priceListener;
             String vStock = tradingStrategy.getStock();
             if (vStock.equals(security)) {
                 tradingStrategy.priceUpdate(security, price);
             }
-
         }
+
     }
 
 

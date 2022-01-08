@@ -11,6 +11,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class TradingStrategyTest {
@@ -50,6 +52,9 @@ public class TradingStrategyTest {
 
         TradingStrategy mockTradingStrategy = mock(TradingStrategy.class);
 
+        //when(mockTradingStrategy.getStock()).thenReturn("CAD");
+
+
         OrderStrategy orderStrategy = OrderStrategy.builder()
                 .strategyName("James08012022")
                 .priceLevel(153)
@@ -57,6 +62,22 @@ public class TradingStrategyTest {
                 .side(Side.BUY)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
+
+        assertNotNull(orderStrategy);
+
+
+        assertEquals("James08012022",orderStrategy.getStrategyName());
+        assertEquals(153, orderStrategy.getPriceLevel(),1e-15);
+        assertEquals("CAD",orderStrategy.getStock());
+        assertEquals(Side.BUY,orderStrategy.getSide());
+        assertNotNull(orderStrategy.getId());
+
+
+        //assertSame(expected, actual),
+        //assertNotSame(expected, actual)
+        //assertArrayEquals(expected, actual)
+        //assertEquals(expected[i],actual[i])
+        //assertArrayEquals(expected[i],actual[i])
 
 
         PriceListener priceSource = new TradingStrategy(orderStrategy, new ExecutionManager() );
