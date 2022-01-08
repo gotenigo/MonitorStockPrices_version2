@@ -3,16 +3,14 @@ package com.acme.mytrader.strategy;
 import com.acme.mytrader.domain.OrderStrategy;
 import com.acme.mytrader.execution.ExecutionManager;
 import com.acme.mytrader.price.PriceListener;
-import com.acme.mytrader.price.PriceSource;
 import com.acme.mytrader.price.PriceSourceManager;
 import com.acme.mytrader.side.Side;
 import org.junit.Test;
-import org.mockito.Mock;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import static org.mockito.Mockito.*;
 
 public class TradingStrategyTest {
@@ -21,13 +19,10 @@ public class TradingStrategyTest {
 //all possible edges or corners
 //Test class should focus on one thing - must test one Class Under Test (CUT) at a time
 
-
 /*
-
     The AAA (Arrange-Act-Assert) pattern has become almost a standard across the industry.
     It suggests that you should divide your test method into three sections: arrange, act and assert.
     Each one of them only responsible for the part in which they are named after.
-
  */
 
     // >> (1) The Arrange => Create Object  : objects would be created, mocks setup (if you are using one) ? Check object is created ???
