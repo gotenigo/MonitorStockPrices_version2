@@ -1,0 +1,2 @@
+package com.acme.mytrader.domain;public class OrderStrategy {
+}
