@@ -259,16 +259,14 @@ public class TradingStrategyTest {
                 .volume(23_000)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
+        PriceListener newPriceListener = new TradingStrategy(orderStrategy, new ExecutionManager());
 
-
-        TradingStrategy tradingStrategy = new TradingStrategy(orderStrategy, new ExecutionManager());
-        priceSource.addPriceListener(tradingStrategy);
-
-
-        priceListener.priceUpdate("CAD",2);
-        priceSource.removePriceListener(tradingStrategy);
-        priceListener.priceUpdate("CAD",2);
-
+        System.out.println("************************ ADD a PriceListener  ******************************");
+        priceSource.addPriceListener(newPriceListener); // We add the new PriceListener
+        priceListener.priceUpdate("CAD",2); // => Update price
+        System.out.println("************************ REMOVE a PriceListener ******************************");
+        priceSource.removePriceListener(newPriceListener); // We remove the new PriceListener
+        priceListener.priceUpdate("CAD",2); // => Update price
 
         PriceListener mockPriceListener= mock(PriceSourceManager.class);
         doNothing().when(mockPriceListener).priceUpdate(isA(String.class), isA(Integer.class));
