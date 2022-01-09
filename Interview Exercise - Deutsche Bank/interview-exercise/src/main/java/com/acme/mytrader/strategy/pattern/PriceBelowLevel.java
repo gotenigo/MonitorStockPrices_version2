@@ -19,16 +19,16 @@ public class PriceBelowLevel implements  PriceStrategy {
 
 
     @Override
-    public boolean runOperation(double price, double privelevel) {
+    public boolean runOperation(double price, double priceLevel) {
 
-        if ( price < privelevel ){   //as soon as the price of that stock is seen to be below a specified price (e.g. 55.0).
+        if ( price < priceLevel ){   //as soon as the price of that stock is seen to be below a specified price (e.g. 55.0).
 
-            log.info("new price received ("+price+") is below priveLevel="+privelevel);
+            log.info("new price received ("+price+") is below priveLevel="+priceLevel);
             return true; // trigger level breached !
 
         }else{
 
-            log.info("new price ("+price+") received is above priveLevel="+privelevel);
+            log.info("new price ("+price+") received is above priveLevel="+priceLevel);
             return false; // nothing breached, keep cool !
         }
 

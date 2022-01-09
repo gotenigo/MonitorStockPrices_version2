@@ -64,7 +64,7 @@ public class TradingStrategyTest {
         TradingStrategy tradingStrategy= new TradingStrategy(orderStrategy, new ExecutionManager());
 
         // We define a function using different rule => We define a PriceStrategy (under Strategy Pattern) via Lambda expression
-        PriceStrategy priceAbove = (double price, double privelevel) ->  price>privelevel;
+        PriceStrategy priceAbove = (double price, double priceLevel) ->  price>priceLevel;
         // @overwrite  the Strategy Pattern when trading - We construct TradingStrategy object with a new implementation of the Strategy Pattern (price above a rule)
         TradingStrategy tradingStrategy2= new TradingStrategy(orderStrategy, new ExecutionManager(),priceAbove);
 
