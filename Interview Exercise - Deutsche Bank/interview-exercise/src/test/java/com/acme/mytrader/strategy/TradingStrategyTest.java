@@ -8,12 +8,9 @@ import com.acme.mytrader.price.PriceSourceManager;
 import com.acme.mytrader.side.Side;
 import com.acme.mytrader.strategy.pattern.PriceStrategy;
 import org.junit.Test;
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
