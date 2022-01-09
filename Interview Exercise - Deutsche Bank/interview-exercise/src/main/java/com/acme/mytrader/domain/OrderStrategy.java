@@ -1,8 +1,6 @@
 package com.acme.mytrader.domain;
 
 import com.acme.mytrader.side.Side;
-
-
 import lombok.*;
 
 
