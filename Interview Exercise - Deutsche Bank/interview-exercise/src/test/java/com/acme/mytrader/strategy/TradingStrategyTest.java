@@ -20,6 +20,13 @@ import static org.mockito.Mockito.*;
 public class TradingStrategyTest {
 
 
+
+//Unit tests should be written properly – using patterns like (Arrange, Act and Assert/Verify) to cover
+//all possible edges or corners
+//Test class should focus on one thing - must test one Class Under Test (CUT) at a time
+
+
+
     @Test
     public void TestOrderStrategyIsCreatedOK() {
 
