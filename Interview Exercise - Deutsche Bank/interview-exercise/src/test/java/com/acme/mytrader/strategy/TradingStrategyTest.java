@@ -2,13 +2,10 @@ package com.acme.mytrader.strategy;
 
 import com.acme.mytrader.domain.OrderStrategy;
 import com.acme.mytrader.execution.ExecutionManager;
-import com.acme.mytrader.execution.ExecutionService;
 import com.acme.mytrader.price.PriceListener;
 import com.acme.mytrader.price.PriceSourceManager;
 import com.acme.mytrader.side.Side;
-import com.acme.mytrader.strategy.pattern.PriceBelowLevel;
 import com.acme.mytrader.strategy.pattern.PriceStrategy;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
 
 
@@ -21,13 +18,6 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 public class TradingStrategyTest {
-
-
-
-//Unit tests should be written properly – using patterns like (Arrange, Act and Assert/Verify) to cover
-//all possible edges or corners
-//Test class should focus on one thing - must test one Class Under Test (CUT) at a time
-
 
 
     @Test
