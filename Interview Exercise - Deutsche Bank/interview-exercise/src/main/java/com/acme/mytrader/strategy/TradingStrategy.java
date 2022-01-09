@@ -29,7 +29,11 @@ public class TradingStrategy implements PriceListener {
 
 
     /**
-     *  //By default, we adopt strategy of PriceBelowLevel()
+     *  By default, we adopt strategy of PriceBelowLevel()     *
+     *
+     *@author  Gothard GOTENI
+     *@version 1.0
+     *@since   09/01/2022
      *
      * @param orderStrategy
      * @param executionService
@@ -47,7 +51,11 @@ public class TradingStrategy implements PriceListener {
 
     /**
      *
-     *  //We can also choose your own Strategy as per the Strategy pattern implementation
+     *  We can also choose your own Strategy as per the Strategy pattern implementation
+     *
+     * @author  Gothard GOTENI
+     * @version 1.0
+     * @since   09/01/2022
      *
      * @param orderStrategy
      * @param executionService
@@ -63,15 +71,19 @@ public class TradingStrategy implements PriceListener {
 
 
 
+
     /**
+     * price update has to happen in real time, so you should not save in memory for further check
+     * it has to be as fast as possible as price can vary very quick !
+     * The HelloWorld program implements an application that
+     * price update should trigger an event immediately
      *
-     *     //price update has to happen in real time, so you should not save in memory for further check
-     *     // it has to be as fast as possible as price can vary very quick !
-     *     // price update should trigger an event immediately
+     * @author  Gothard GOTENI
+     * @version 1.0
+     * @since   09/01/2022
      *
-     *
-     * @param security
-     * @param price
+     *@param security
+     *@param price
      */
     @Override
     public void priceUpdate(String security, double price) {
@@ -87,7 +99,7 @@ public class TradingStrategy implements PriceListener {
             boolean triggerLevelBreached = context.executeStrategy(price, priceLevel);
 
             if (triggerLevelBreached) {
-                log.info("Stock '"+security+"' => !!! Price Monitor level reached for  alert orderStrategy Id "+orderStrategy.getId()+", StrategyName='"+orderStrategy.getStrategyName()+"'");
+                //log.info("Stock '"+security+"' => !!! Price Monitor level reached for  alert orderStrategy Id "+orderStrategy.getId()+", StrategyName='"+orderStrategy.getStrategyName()+"'");
 
                 switch(side) {  // good choice as it will throw a compilation error if side does not provide the right value
                     case BUY :
