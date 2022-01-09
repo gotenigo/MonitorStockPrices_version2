@@ -193,7 +193,7 @@ public class TradingStrategyTest {
     public void TestMockPriceListenerListRunnningOK() {
 
 
-        List<TradingStrategy> tradingStrategyList = new ArrayList<>();
+        List<OrderStrategy> orderStrategyList = new ArrayList<>();
         OrderStrategy orderStrategy;
 
         orderStrategy = OrderStrategy.builder()
@@ -205,7 +205,7 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
+        orderStrategyList.add(orderStrategy );
 
 
 
@@ -218,7 +218,7 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
+        orderStrategyList.add(orderStrategy );
 
 
 
@@ -231,7 +231,7 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
+        orderStrategyList.add(orderStrategy );
 
 
 
@@ -244,9 +244,10 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
+        orderStrategyList.add(orderStrategy );
 
 
+        List<TradingStrategy> tradingStrategyList = PriceSourceManager.OrderStrategyListToTradingStrategyList(orderStrategyList);
         PriceSourceManager priceSourceManager= new PriceSourceManager(tradingStrategyList);
         PriceListener priceListener = priceSourceManager;
         PriceSource priceSource = priceSourceManager;

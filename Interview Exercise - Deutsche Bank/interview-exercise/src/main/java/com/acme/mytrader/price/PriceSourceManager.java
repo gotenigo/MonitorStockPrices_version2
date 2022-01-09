@@ -74,7 +74,7 @@ public class PriceSourceManager implements PriceSource, PriceListener{
      * @param orderStrategyList
      * @return
      */
-    public List<TradingStrategy> OrderStrategyListToTradingStrategyList(List<OrderStrategy> orderStrategyList) {
+    public static List<TradingStrategy>  OrderStrategyListToTradingStrategyList(List<OrderStrategy> orderStrategyList) {
 
         List<TradingStrategy> vTradingStrategy = new ArrayList<>();
         orderStrategyList.forEach(x -> vTradingStrategy.add(   new TradingStrategy(x,new ExecutionManager())  )  );
