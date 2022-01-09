@@ -194,6 +194,7 @@ public class TradingStrategyTest {
         List<OrderStrategy> orderStrategyList = new ArrayList<>();
         OrderStrategy orderStrategy;
 
+        // 1. Add an orderStrategy
         orderStrategy = OrderStrategy.builder()
                 .strategyName("Gothard short from 2")
                 .priceLevel(11)
@@ -206,7 +207,7 @@ public class TradingStrategyTest {
         orderStrategyList.add(orderStrategy );
 
 
-
+        // 2. Add an orderStrategy
         orderStrategy = OrderStrategy.builder()
                 .strategyName("Julien Long from 546.3")
                 .priceLevel(12)
@@ -219,7 +220,7 @@ public class TradingStrategyTest {
         orderStrategyList.add(orderStrategy );
 
 
-
+        // 3. Add an orderStrategy
         orderStrategy = OrderStrategy.builder()
                 .strategyName("David 01.01.2022")
                 .priceLevel(13)
@@ -232,7 +233,7 @@ public class TradingStrategyTest {
         orderStrategyList.add(orderStrategy );
 
 
-
+        // 4. Add an orderStrategy
         orderStrategy = OrderStrategy.builder()
                 .strategyName("Luke Strategy")
                 .priceLevel(5)
@@ -251,7 +252,7 @@ public class TradingStrategyTest {
         PriceSource priceSource = priceSourceManager;
 
 
-
+        // 5. Add an orderStrategy
         orderStrategy = OrderStrategy.builder()
                 .strategyName("Final Strategy")
                 .priceLevel(2.52)
