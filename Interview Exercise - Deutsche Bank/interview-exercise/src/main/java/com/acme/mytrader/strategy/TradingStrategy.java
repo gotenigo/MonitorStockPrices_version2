@@ -47,7 +47,7 @@ public class TradingStrategy implements PriceListener {
 
     /**
      *
-     *  //We can also choose your own Strategy as per the Strategy patter implementation
+     *  //We can also choose your own Strategy as per the Strategy pattern implementation
      *
      * @param orderStrategy
      * @param executionService
