@@ -3,6 +3,7 @@ package com.acme.mytrader.strategy;
 import com.acme.mytrader.domain.OrderStrategy;
 import com.acme.mytrader.execution.ExecutionManager;
 import com.acme.mytrader.price.PriceListener;
+import com.acme.mytrader.price.PriceSource;
 import com.acme.mytrader.price.PriceSourceManager;
 import com.acme.mytrader.side.Side;
 import com.acme.mytrader.strategy.pattern.PriceStrategy;
@@ -81,6 +82,19 @@ public class TradingStrategyTest {
         assertTrue(tradingStrategy instanceof TradingStrategy);
         assertTrue(tradingStrategy2 instanceof TradingStrategy);
         assertEquals("AHD",tradingStrategy.getStock());
+        assertEquals("AHD",tradingStrategy2.getStock());
+
+    }
+
+
+
+    @Test
+    public void TestMockTradingStrategypriceUpdate() {
+
+        TradingStrategy mockTradingStrategy = mock(TradingStrategy.class);
+        doNothing().when(mockTradingStrategy).priceUpdate(isA(String.class), isA(Integer.class));
+        mockTradingStrategy.priceUpdate("FTSE",10_000);
+        verify( mockTradingStrategy, times(1)).priceUpdate("FTSE", 10_000);
 
     }
 
@@ -179,11 +193,11 @@ public class TradingStrategyTest {
     public void TestMockPriceListenerListRunnningOK() {
 
 
-        List<OrderStrategy> orderStrategyList = new ArrayList<>();
+        List<TradingStrategy> tradingStrategyList = new ArrayList<>();
         OrderStrategy orderStrategy;
 
         orderStrategy = OrderStrategy.builder()
-                .strategyName("Mike short from 2")
+                .strategyName("Gothard short from 2")
                 .priceLevel(11)
                 .stock("CAD")
                 .side(Side.SELL)
@@ -191,7 +205,7 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        orderStrategyList.add(orderStrategy);
+        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
 
 
 
@@ -204,7 +218,7 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        orderStrategyList.add(orderStrategy);
+        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
 
 
 
@@ -217,6 +231,9 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
+        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
+
+
 
         orderStrategy = OrderStrategy.builder()
                 .strategyName("Luke Strategy")
@@ -227,13 +244,31 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
-        orderStrategyList.add(orderStrategy);
+        tradingStrategyList.add(new TradingStrategy(orderStrategy, new ExecutionManager()) );
 
 
-        PriceListener priceSource = new PriceSourceManager(orderStrategyList);
+        PriceSourceManager priceSourceManager= new PriceSourceManager(tradingStrategyList);
+        PriceListener priceListener = priceSourceManager;
+        PriceSource priceSource = priceSourceManager;
 
 
-        priceSource.priceUpdate("CAD",2);
+
+        orderStrategy = OrderStrategy.builder()
+                .strategyName("Final Strategy")
+                .priceLevel(2.52)
+                .stock("CAD")
+                .side(Side.BUY)
+                .volume(23_000)
+                .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
+                .build();
+
+        TradingStrategy tradingStrategy = new TradingStrategy(orderStrategy, new ExecutionManager());
+        priceSource.addPriceListener(tradingStrategy);
+
+
+        priceListener.priceUpdate("CAD",2);
+        priceSource.removePriceListener(tradingStrategy);
+        priceListener.priceUpdate("CAD",2);
 
 
         PriceListener mockPriceListener= mock(PriceSourceManager.class);

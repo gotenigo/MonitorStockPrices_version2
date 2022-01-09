@@ -3,25 +3,21 @@ package com.acme.mytrader.price;
 import com.acme.mytrader.domain.OrderStrategy;
 import com.acme.mytrader.execution.ExecutionManager;
 import com.acme.mytrader.strategy.TradingStrategy;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class PriceSourceManager implements PriceSource, PriceListener{
 
-    private List<PriceListener> PriceListenerList;
+    private List<TradingStrategy> tradingStrategyList;
 
 
 
-    public PriceSourceManager(List<OrderStrategy> orderStrategyList) {
 
-        PriceListenerList = new ArrayList<>();
-        List<TradingStrategy> tradingStrategyList =  new ArrayList<>();
-        orderStrategyList.forEach(x -> tradingStrategyList.add(   new TradingStrategy(x,new ExecutionManager())  )  );
-        PriceListenerList.addAll(tradingStrategyList);
-
+    public PriceSourceManager(List<TradingStrategy> tradingStrategyList) {
+        this.tradingStrategyList = tradingStrategyList;
     }
+
+
 
 
     /****
@@ -31,7 +27,8 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     @Override
     public void addPriceListener(PriceListener listener) {
 
-        PriceListenerList.add(listener);
+        TradingStrategy vTradingStrategy = (TradingStrategy) listener;
+        this.tradingStrategyList.add(vTradingStrategy);
 
     }
 
@@ -43,9 +40,11 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     @Override
     public void removePriceListener(PriceListener listener) {
 
-        PriceListenerList.remove(listener);
+        TradingStrategy vTradingStrategy = (TradingStrategy) listener;
+        this.tradingStrategyList.remove(vTradingStrategy);
 
     }
+
 
 
     /**
@@ -55,15 +54,34 @@ public class PriceSourceManager implements PriceSource, PriceListener{
      */
     public void priceUpdate(String security, double price) {
 
-        for (PriceListener priceListener : PriceListenerList) {
-
-            TradingStrategy tradingStrategy = (TradingStrategy) priceListener;
+        for (TradingStrategy tradingStrategy : this.tradingStrategyList) {
             String vStock = tradingStrategy.getStock();
             if (vStock.equals(security)) {
                 tradingStrategy.priceUpdate(security, price);
             }
         }
     }
+
+
+
+
+
+    /****
+     *
+     *  //Util method
+     *   convert  List<OrderStrategy>  TO  List<TradingStrategy>
+     *
+     * @param orderStrategyList
+     * @return
+     */
+    public List<TradingStrategy> OrderStrategyListToTradingStrategyList(List<OrderStrategy> orderStrategyList) {
+
+        List<TradingStrategy> vTradingStrategy = new ArrayList<>();
+        orderStrategyList.forEach(x -> vTradingStrategy.add(   new TradingStrategy(x,new ExecutionManager())  )  );
+
+        return vTradingStrategy;
+    }
+
 
 
 
