@@ -187,7 +187,7 @@ public class TradingStrategyTest {
     //User can provide a List<OrderStrategy> that will be automatically converted into List<TradingStrategy>
     //Then when a new price comes in, we update the Price for all the stock affected
     @Test
-    public void TestMockPriceListenerListRunnningOK() {
+    public void TestMockPriceListenerListRunningOK() {
 
 
         List<OrderStrategy> orderStrategyList = new ArrayList<>();
