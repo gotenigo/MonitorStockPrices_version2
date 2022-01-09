@@ -40,6 +40,8 @@ public class TradingStrategyTest {
                 .build();
 
 
+        assertTrue(orderStrategy.toString() instanceof String);
+
         assertNotNull(orderStrategy);
         assertEquals("James08012022",orderStrategy.getStrategyName());
         assertEquals(153, orderStrategy.getPriceLevel(),1e-15);
@@ -60,12 +62,24 @@ public class TradingStrategyTest {
                 .strategyName("Oliver buys low")
                 .priceLevel(11)
                 .stock("AHD")
-                .side(Side.SELL)
+                .side(Side.BUY)
                 .volume(30)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
         TradingStrategy tradingStrategy= new TradingStrategy(orderStrategy, new ExecutionManager());
+
+        // We define a PriceStrategy (under Strategy Pattern) via Lambda expression
+        PriceStrategy priceAbove = (double price, double privelevel) ->  price>privelevel;
+        // We construct TradingStrategy object with a new implementation of the STrategy Pattern (price above a rule)
+        TradingStrategy tradingStrategy2= new TradingStrategy(orderStrategy, new ExecutionManager(),priceAbove);
+
+        tradingStrategy2.priceUpdate("AHD",40);  // Strategy validated
+        tradingStrategy2.priceUpdate("AHD",5);  // Strategy not true
+        tradingStrategy2.priceUpdate("XXX",11);  // False price update
+
+        assertTrue(tradingStrategy instanceof TradingStrategy);
+        assertTrue(tradingStrategy2 instanceof TradingStrategy);
         assertEquals("AHD",tradingStrategy.getStock());
 
     }
@@ -200,6 +214,16 @@ public class TradingStrategyTest {
                 .stock("FIT")
                 .side(Side.SELL)
                 .volume(55)
+                .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
+                .build();
+
+
+        orderStrategy = OrderStrategy.builder()
+                .strategyName("Luke Strategy")
+                .priceLevel(5)
+                .stock("CAD")
+                .side(Side.SELL)
+                .volume(5)
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 

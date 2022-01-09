@@ -23,12 +23,12 @@ public class PriceBelowLevel implements  PriceStrategy {
 
         if ( price < privelevel ){   //as soon as the price of that stock is seen to be below a specified price (e.g. 55.0).
 
-            log.info("new price received ("+price+") is below privelevel="+privelevel);
+            log.info("new price received ("+price+") is below priveLevel="+privelevel);
             return true; // trigger level breached !
 
         }else{
 
-            log.info("new price ("+price+") received is above privelevel="+privelevel);
+            log.info("new price ("+price+") received is above priveLevel="+privelevel);
             return false; // nothing breached, keep cool !
         }
 
