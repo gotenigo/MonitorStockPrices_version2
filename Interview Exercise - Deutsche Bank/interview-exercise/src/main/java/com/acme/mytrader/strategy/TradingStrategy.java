@@ -99,7 +99,7 @@ public class TradingStrategy implements PriceListener {
             boolean triggerLevelBreached = context.executeStrategy(price, priceLevel);
 
             if (triggerLevelBreached) {
-                //log.info("Stock '"+security+"' => !!! Price Monitor level reached for  alert orderStrategy Id "+orderStrategy.getId()+", StrategyName='"+orderStrategy.getStrategyName()+"'");
+                log.info("Stock '"+security+"' => !!! Price Monitor level reached for  alert orderStrategy Id "+orderStrategy.getId()+", StrategyName='"+orderStrategy.getStrategyName()+"'");
 
                 switch(side) {  // good choice as it will throw a compilation error if side does not provide the right value
                     case BUY :
