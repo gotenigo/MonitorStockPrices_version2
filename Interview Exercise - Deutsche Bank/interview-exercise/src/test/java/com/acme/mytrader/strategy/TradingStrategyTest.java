@@ -244,7 +244,7 @@ public class TradingStrategyTest {
         orderStrategyList.add(orderStrategy );
 
 
-        List<TradingStrategy> tradingStrategyList = PriceSourceManager.OrderStrategyListToTradingStrategyList(orderStrategyList);
+        List<TradingStrategy> tradingStrategyList = PriceSourceManager.OrderStrategyListToTradingStrategyList(orderStrategyList, new ExecutionManager());
         PriceSourceManager priceSourceManager= new PriceSourceManager(tradingStrategyList);
         PriceListener priceListener = priceSourceManager;
         PriceSource priceSource = priceSourceManager;

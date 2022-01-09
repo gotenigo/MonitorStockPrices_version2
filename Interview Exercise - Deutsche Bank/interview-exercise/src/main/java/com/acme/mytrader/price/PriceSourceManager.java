@@ -2,6 +2,7 @@ package com.acme.mytrader.price;
 
 import com.acme.mytrader.domain.OrderStrategy;
 import com.acme.mytrader.execution.ExecutionManager;
+import com.acme.mytrader.execution.ExecutionService;
 import com.acme.mytrader.strategy.TradingStrategy;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +74,10 @@ public class PriceSourceManager implements PriceSource, PriceListener{
      * @param orderStrategyList
      * @return
      */
-    public static List<TradingStrategy>  OrderStrategyListToTradingStrategyList(List<OrderStrategy> orderStrategyList) {
+    public static List<TradingStrategy>  OrderStrategyListToTradingStrategyList(List<OrderStrategy> orderStrategyList, ExecutionService executionService) {
 
         List<TradingStrategy> vTradingStrategy = new ArrayList<>();
-        orderStrategyList.forEach(x -> vTradingStrategy.add(   new TradingStrategy(x,new ExecutionManager())  )  );
+        orderStrategyList.forEach(x -> vTradingStrategy.add(   new TradingStrategy(x,executionService)  )  );
 
         return vTradingStrategy;
     }
