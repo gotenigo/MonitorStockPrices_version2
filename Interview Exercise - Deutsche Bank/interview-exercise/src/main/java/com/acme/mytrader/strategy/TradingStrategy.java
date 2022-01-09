@@ -114,7 +114,7 @@ public class TradingStrategy implements PriceListener {
             }
 
         }else{
-            log.info("Stock price rejected ! You are trying to update the wrong stock price. Stock set by user is '"+orderStrategy.getStock()+"', but you want to update stock name '"+security+"'");
+            log.info("Stock price update ignored ! You are trying to update the wrong stock price. Stock set by user is '"+orderStrategy.getStock()+"', but you want to update stock name '"+security+"'");
         }
 
     }

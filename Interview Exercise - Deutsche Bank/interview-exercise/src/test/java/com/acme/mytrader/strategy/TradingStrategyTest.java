@@ -24,6 +24,8 @@ public class TradingStrategyTest {
     @Test
     public void TestOrderStrategyIsCreatedOK() {
 
+        System.out.println("________________ TestOrderStrategyIsCreatedOK ");
+
         OrderStrategy orderStrategy = OrderStrategy.builder()
                 .strategyName("James08012022")
                 .priceLevel(153)
@@ -51,6 +53,8 @@ public class TradingStrategyTest {
 
     @Test
     public void TestTradingStrategyGetStockAndPriceUpdate() {
+
+        System.out.println("________________ TestTradingStrategyGetStockAndPriceUpdate ");
 
         OrderStrategy orderStrategy = OrderStrategy.builder()
                 .strategyName("Oliver buys low")
@@ -82,7 +86,9 @@ public class TradingStrategyTest {
 
 
     @Test
-    public void TestMockTradingStrategypriceUpdate() {
+    public void TestMockTradingStrategyPriceUpdate() {
+
+        System.out.println("________________ TestMockTradingStrategyPriceUpdate ");
 
         TradingStrategy mockTradingStrategy = mock(TradingStrategy.class);
         doNothing().when(mockTradingStrategy).priceUpdate(isA(String.class), isA(Integer.class));
@@ -96,6 +102,7 @@ public class TradingStrategyTest {
     @Test(expected = NullPointerException.class)
     public void TestOrderStrategyExceptionThrownWhenWrongArg() {
 
+        System.out.println("________________ TestOrderStrategyExceptionThrownWhenWrongArg ");
 
         OrderStrategy orderStrategy = OrderStrategy.builder()
                 .strategyName("James08012022")
@@ -114,6 +121,8 @@ public class TradingStrategyTest {
     public void TestOrderStrategyExceptionThrownWhenWrongArg2() {
 
 
+        System.out.println("________________ TestOrderStrategyExceptionThrownWhenWrongArg2 ");
+
         OrderStrategy orderStrategy = OrderStrategy.builder()
                 .strategyName("James08012022")
                 .priceLevel(153)
@@ -130,6 +139,8 @@ public class TradingStrategyTest {
     @Test
     public void TestMockPriceCallIsExecuted() {
 
+        System.out.println("________________ TestMockPriceCallIsExecuted ");
+
         PriceListener mockPriceListener = mock(PriceListener.class);
         doNothing().when(mockPriceListener).priceUpdate(isA(String.class), isA(Integer.class));
         mockPriceListener.priceUpdate("CAD",5);
@@ -142,6 +153,8 @@ public class TradingStrategyTest {
     @Test
     public void TestMockPriceCallIsExecutedOthervalue() {
 
+        System.out.println("________________ TestMockPriceCallIsExecutedOthervalue ");
+
         PriceListener mockPriceListener = mock(PriceListener.class);
         doNothing().when(mockPriceListener).priceUpdate(isA(String.class), isA(Integer.class));
         mockPriceListener.priceUpdate("AHD",15);
@@ -153,6 +166,8 @@ public class TradingStrategyTest {
 
     @Test
     public void TestMockPriceBelowLevelTrue() {
+
+        System.out.println("________________ TestMockPriceBelowLevelTrue ");
 
         PriceStrategy mockPriceStrategy= mock(PriceStrategy.class);
         doReturn(true).when(mockPriceStrategy).runOperation( 5 , 10 );
@@ -167,6 +182,8 @@ public class TradingStrategyTest {
     @Test
     public void TestMockPriceBelowLevelFalse() {
 
+        System.out.println("________________ TestMockPriceBelowLevelFalse ");
+
         PriceStrategy mockPriceStrategy= mock(PriceStrategy.class);
         doReturn(false).when(mockPriceStrategy).runOperation( 15 , 100 );
         boolean ret = mockPriceStrategy.runOperation( 15 , 100 );
@@ -180,12 +197,13 @@ public class TradingStrategyTest {
 
 
     //Just to clarify, this test covers some extra work done in PriceSourceManager
-    //User can provide a List<OrderStrategy> that will be automatically converted into List<TradingStrategy>
+    //User can provide a List<OrderStrategy> that will be automatically converted into List<PriceListener>
     //Then we can add or Remove new Listener
     //Finally, when a new price comes in, we update the Price for all the stock affected within the List. This is a great feature to have !
     @Test
     public void TestMockPriceListenerListRunningOK() {
 
+        System.out.println("________________ TestMockPriceListenerListRunningOK ");
 
         List<OrderStrategy> orderStrategyList = new ArrayList<>();
         OrderStrategy orderStrategy;
@@ -242,7 +260,7 @@ public class TradingStrategyTest {
         orderStrategyList.add(orderStrategy );
 
 
-        List<TradingStrategy> tradingStrategyList = PriceSourceManager.OrderStrategyListToTradingStrategyList(orderStrategyList, new ExecutionManager());
+        List<PriceListener> tradingStrategyList = PriceSourceManager.OrderStrategyListToPriceListenerList(orderStrategyList, new ExecutionManager());
         PriceSourceManager priceSourceManager= new PriceSourceManager(tradingStrategyList);
         PriceListener priceListener = priceSourceManager;
         PriceSource priceSource = priceSourceManager;

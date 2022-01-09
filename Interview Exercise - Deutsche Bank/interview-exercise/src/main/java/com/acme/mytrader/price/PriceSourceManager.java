@@ -9,11 +9,11 @@ import java.util.List;
 
 public class PriceSourceManager implements PriceSource, PriceListener{
 
-    private List<TradingStrategy> tradingStrategyList;
+    private List<PriceListener> tradingStrategyList;
 
 
 
-    public PriceSourceManager(List<TradingStrategy> tradingStrategyList) {
+    public PriceSourceManager(List<PriceListener> tradingStrategyList) {
         this.tradingStrategyList = tradingStrategyList;
     }
 
@@ -26,8 +26,7 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     @Override
     public void addPriceListener(PriceListener listener) {
 
-        TradingStrategy vTradingStrategy = (TradingStrategy) listener;
-        this.tradingStrategyList.add(vTradingStrategy);
+        this.tradingStrategyList.add(listener);
 
     }
 
@@ -40,8 +39,7 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     @Override
     public void removePriceListener(PriceListener listener) {
 
-        TradingStrategy vTradingStrategy = (TradingStrategy) listener;
-        this.tradingStrategyList.remove(vTradingStrategy);
+        this.tradingStrategyList.remove(listener);
 
     }
 
@@ -54,11 +52,8 @@ public class PriceSourceManager implements PriceSource, PriceListener{
      */
     public void priceUpdate(String security, double price) {
 
-        for (TradingStrategy tradingStrategy : this.tradingStrategyList) {
-            String vStock = tradingStrategy.getStock();
-            if (vStock.equals(security)) {
+        for (PriceListener tradingStrategy : this.tradingStrategyList) {
                 tradingStrategy.priceUpdate(security, price);
-            }
         }
     }
 
@@ -69,17 +64,17 @@ public class PriceSourceManager implements PriceSource, PriceListener{
     /****
      *
      *  //Util method
-     *   convert  List<OrderStrategy>  TO  List<TradingStrategy>
+     *   convert  List<OrderStrategy>  TO  List<PriceListener>
      *
      * @param orderStrategyList
      * @return
      */
-    public static List<TradingStrategy>  OrderStrategyListToTradingStrategyList(List<OrderStrategy> orderStrategyList, ExecutionService executionService) {
+    public static List<PriceListener>  OrderStrategyListToPriceListenerList(List<OrderStrategy> orderStrategyList, ExecutionService executionService) {
 
-        List<TradingStrategy> vTradingStrategy = new ArrayList<>();
-        orderStrategyList.forEach(x -> vTradingStrategy.add(   new TradingStrategy(x,executionService)  )  );
+        List<PriceListener> vPriceListener = new ArrayList<>();
+        orderStrategyList.forEach(x -> vPriceListener.add(   new TradingStrategy(x,executionService)  )  );
+        return vPriceListener;
 
-        return vTradingStrategy;
     }
 
 
