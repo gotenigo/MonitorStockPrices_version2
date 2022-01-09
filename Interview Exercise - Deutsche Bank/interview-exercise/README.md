@@ -9,7 +9,7 @@ Note:
 The implementation of PriceSource and EecutionService is out of scope, assuming that it will be provided by third party.
 You need to listen to price updates from PriceSource and act accordingly.
 
-## Exercise
+## Scope
 
 The following interface definitions (provided)
 
