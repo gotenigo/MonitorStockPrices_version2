@@ -162,7 +162,8 @@ public class TradingStrategyTest {
 
 
     //Just to clarify, this test covers some extra work done in PriceSourceManager
-    //We can create a Strategy a List<TradingStrategy> for a larger scope if needed
+    //User can provide a List<OrderStrategy> that will be automatically converted into List<TradingStrategy>
+    //Then when a new price comes in, we update the Price for all the stock affected
     @Test
     public void TestMockPriceListenerListRunnningOK() {
 
