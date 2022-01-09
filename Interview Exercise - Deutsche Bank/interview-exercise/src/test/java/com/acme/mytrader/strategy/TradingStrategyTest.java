@@ -263,6 +263,7 @@ public class TradingStrategyTest {
                 .id(UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE)
                 .build();
 
+
         TradingStrategy tradingStrategy = new TradingStrategy(orderStrategy, new ExecutionManager());
         priceSource.addPriceListener(tradingStrategy);
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface PriceStrategy {
 
-    public boolean runOperation(double price, double privelevel );
+    boolean runOperation(double price, double privelevel);
 
 
 }

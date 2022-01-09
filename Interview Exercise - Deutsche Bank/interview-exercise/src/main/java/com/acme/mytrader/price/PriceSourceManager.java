@@ -12,15 +12,13 @@ public class PriceSourceManager implements PriceSource, PriceListener{
 
 
 
-
     public PriceSourceManager(List<TradingStrategy> tradingStrategyList) {
         this.tradingStrategyList = tradingStrategyList;
     }
 
 
-
-
-    /****
+    /**
+     *   void addPriceListener(PriceListener listener)
      *
      * @param listener
      */
@@ -34,6 +32,7 @@ public class PriceSourceManager implements PriceSource, PriceListener{
 
 
     /**
+     *   void removePriceListener(PriceListener listener)
      *
      * @param listener
      */
